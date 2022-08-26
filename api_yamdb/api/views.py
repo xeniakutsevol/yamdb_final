@@ -1,24 +1,24 @@
-from django.shortcuts import get_object_or_404
-from django.db.models import Avg, SmallIntegerField
-from iniconfig import ParseError
-from rest_framework import viewsets, permissions, status, mixins, filters
 from django.contrib.auth import get_user_model
-from .serializers import (SignUpSerializer, UsersSerializer,
-                          CommentSerializer, ReviewSerializer,
-                          TitleReadSerializer, CategorySerializer,
-                          GenreSerializer, TitleWriteSerializer,)
-from rest_framework.response import Response
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
-from rest_framework.pagination import PageNumberPagination
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.decorators import api_view, permission_classes, action
-from .permissions import (ReviewCommentPermission, UsersPermission,
-                          IsAdminUserOrReadOnly, IsAdminOrSuperuser)
-from reviews.models import Title, Category, Genre, Review
+from django.db.models import Avg, SmallIntegerField
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from .filters import TitleFilter
+from iniconfig import ParseError
+from rest_framework import filters, mixins, permissions, status, viewsets
+from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
+from reviews.models import Category, Genre, Review, Title
 
+from .filters import TitleFilter
+from .permissions import (IsAdminOrSuperuser, IsAdminUserOrReadOnly,
+                          ReviewCommentPermission, UsersPermission)
+from .serializers import (CategorySerializer, CommentSerializer,
+                          GenreSerializer, ReviewSerializer, SignUpSerializer,
+                          TitleReadSerializer, TitleWriteSerializer,
+                          UsersSerializer)
 
 User = get_user_model()
 
